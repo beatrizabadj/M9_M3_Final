@@ -1,5 +1,5 @@
 // wwwroot/js/script.js
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // DOM Elements
     const searchInput = document.getElementById('search-input');
     const searchBtn = document.getElementById('search-btn');
@@ -73,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Update UI with current weather
             updateCurrentWeather(currentData);
-            
+
             // Update UI with forecast
             updateForecast(forecastData);
-            
+
         } catch (error) {
             console.error('Error fetching weather data:', error);
             cityElement.textContent = 'Error loading weather';
@@ -95,17 +95,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update date
         const now = new Date();
-        dateElement.textContent = now.toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+        dateElement.textContent = now.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
 
         // Update weather icon based on condition
         const condition = data.currentCondition.toLowerCase();
         let iconKey = 'cloudy'; // default
-        
+
         if (condition.includes('sun') || condition.includes('clear')) {
             iconKey = 'sunny';
         } else if (condition.includes('partly')) {
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (condition.includes('thunder') || condition.includes('storm')) {
             iconKey = 'thunder';
         }
-        
+
         weatherImg.src = weatherIcons[iconKey] || weatherIcons['cloudy'];
     }
 
@@ -127,22 +127,22 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateForecast(data) {
         // Clear previous forecast
         forecastContainer.innerHTML = '';
-        
+
         // Get the next 5 days (skip today)
         const forecastDays = data.forecast.forecastday.slice(0, 5);
-        
+
         forecastDays.forEach(day => {
             const forecastDayElement = document.createElement('div');
             forecastDayElement.className = 'forecast-day';
-            
+
             // Format date as short weekday (e.g., "Mon")
             const date = new Date(day.date);
             const weekday = date.toLocaleDateString('en-US', { weekday: 'short' });
-            
+
             // Get appropriate icon
             const condition = day.day.condition.text.toLowerCase();
             let iconKey = 'cloudy'; // default
-            
+
             if (condition.includes('sun') || condition.includes('clear')) {
                 iconKey = 'sunny';
             } else if (condition.includes('partly')) {
@@ -156,14 +156,135 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (condition.includes('thunder') || condition.includes('storm')) {
                 iconKey = 'thunder';
             }
-            
+
             forecastDayElement.innerHTML = `
                 <p>${weekday}</p>
                 <img src="${weatherIcons[iconKey] || weatherIcons['cloudy']}" alt="${day.day.condition.text}">
                 <p>${Math.round(day.day.avgtemp_c)}°C</p>
             `;
-            
+
             forecastContainer.appendChild(forecastDayElement);
         });
     }
+
+    async function loadWeatherHistory() {
+        try {
+            const response = await fetch('/api/weather/history');
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
+            const history = await response.json();
+            displayWeatherHistory(history);
+        } catch (error) {
+            console.error('Error loading weather history:', error);
+        }
+    }
+
+    function displayWeatherHistory(history) {
+        const historyList = document.getElementById('history-list');
+        historyList.innerHTML = '';
+
+        if (history.length === 0) {
+            historyList.innerHTML = '<p>No weather history available</p>';
+            return;
+        }
+
+        history.forEach(item => {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            historyItem.dataset.id = item.id;  // Store ID on the item
+
+            const date = new Date(item.timestamp).toLocaleString();
+
+            historyItem.innerHTML = `
+            <div class="history-info">
+                <p>${item.locationName}</p>
+                <p>${Math.round(item.currentTemperature)}°C, ${item.currentCondition}</p>
+                <p>Humidity: ${item.currentHumidity}%</p>
+                <p>${date}</p>
+            </div>
+            <div class="history-actions">
+                <button class="view" data-id="${item.id}">View</button>
+                <button class="delete" data-id="${item.id}">Delete</button>
+            </div>
+        `;
+
+            historyList.appendChild(historyItem);
+        });
+
+        // Add event delegation for better performance
+        historyList.addEventListener('click', (e) => {
+            const viewBtn = e.target.closest('.view');
+            const deleteBtn = e.target.closest('.delete');
+
+            if (viewBtn) {
+                const id = viewBtn.getAttribute('data-id');
+                viewHistoryItem(id);
+            }
+
+            if (deleteBtn) {
+                const id = deleteBtn.getAttribute('data-id');
+                deleteHistoryItem(id);
+            }
+        });
+    }
+
+    async function viewHistoryItem(id) {
+        try {
+            // First try to get the full record from your history endpoint
+            const historyResponse = await fetch(`/api/weather/history`);
+            if (!historyResponse.ok) throw new Error('Failed to fetch history');
+
+            const history = await historyResponse.json();
+            const item = history.find(i => i.id == id); // Find the specific item
+
+            if (!item) throw new Error('History item not found');
+
+            // Update the UI with the historical data
+            cityElement.textContent = item.locationName;
+            temperatureElement.textContent = `${Math.round(item.currentTemperature)}°C`;
+            descriptionElement.textContent = item.currentCondition;
+            humidityElement.textContent = `${item.currentHumidity}%`;
+
+            const date = new Date(item.timestamp);
+            dateElement.textContent = date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        } catch (error) {
+            console.error('Error viewing history item:', error);
+            alert('Failed to load historical weather data: ' + error.message);
+        }
+    }
+
+    async function deleteHistoryItem(id) {
+        if (!confirm('Are you sure you want to delete this weather record?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/weather/history/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
+
+            // Reload history after deletion
+            await loadWeatherHistory();
+        } catch (error) {
+            console.error('Error deleting history item:', error);
+            alert('Failed to delete weather record');
+        }
+    }
+
+    // Call this at the end of your DOMContentLoaded event listener
+    loadWeatherHistory();
 });

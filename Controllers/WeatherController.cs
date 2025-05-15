@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using WeatherApp.Services;
+using WeatherApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WeatherApp.Controllers
 {
@@ -12,13 +14,16 @@ namespace WeatherApp.Controllers
     {
         private readonly IWeatherService _weatherService;
         private readonly ILogger<WeatherController> _logger;
+        private readonly WeatherContext _context;
 
         public WeatherController(
             IWeatherService weatherService,
-            ILogger<WeatherController> logger)
+            ILogger<WeatherController> logger,
+            WeatherContext context)
         {
             _weatherService = weatherService;
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet("current")]
@@ -63,6 +68,51 @@ namespace WeatherApp.Controllers
             {
                 _logger.LogError(ex, "Error fetching forecast for {City}", city);
                 return StatusCode(500, $"Error fetching forecast: {ex.Message}");
+            }
+        }
+
+        [HttpGet("history")]
+        public async Task<IActionResult> GetWeatherHistory()
+        {
+            try
+            {
+                var history = await _context.WeatherRecords
+                    .OrderByDescending(w => w.Timestamp)
+                    .ToListAsync();
+                return Ok(history);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching weather history");
+                return StatusCode(500, $"Error fetching weather history: {ex.Message}");
+            }
+        }
+
+        [HttpGet("history/{id?}")]
+        public async Task<IActionResult> GetWeatherHistory(int? id = null)
+        {
+            try
+            {
+                if (id.HasValue)
+                {
+                    // Return single record if ID is specified
+                    var record = await _context.WeatherRecords.FindAsync(id);
+                    if (record == null) return NotFound();
+                    return Ok(record);
+                }
+                else
+                {
+                    // Return all records if no ID specified
+                    var history = await _context.WeatherRecords
+                        .OrderByDescending(w => w.Timestamp)
+                        .ToListAsync();
+                    return Ok(history);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching weather history");
+                return StatusCode(500, $"Error fetching weather history: {ex.Message}");
             }
         }
     }

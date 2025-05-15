@@ -12,17 +12,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ifkpr6hhxd"},{"Name":"integrity","Value":"sha256-Uqmy6P6EAUPX7eqnq3KrdejZD2OBx8pBlcdLYN0U02k="},{"Name":"label","Value":"_content/WeatherApi/css/styles.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3156"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Uqmy6P6EAUPX7eqnq3KrdejZD2OBx8pBlcdLYN0U02k=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 21:15:15 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/WeatherApi/js/script.4bnwf8i5sw.js">
+    <StaticWebAssetEndpoint Include="_content/WeatherApi/js/script.fgv4p8qgnw.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\script.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"4bnwf8i5sw"},{"Name":"integrity","Value":"sha256-AC2fhLh67ZR4IjoqfAdvvYwLwwJ\u002B8JQYyO9rmx0S0aI="},{"Name":"label","Value":"_content/WeatherApi/js/script.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7174"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022AC2fhLh67ZR4IjoqfAdvvYwLwwJ\u002B8JQYyO9rmx0S0aI=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 22:03:40 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"fgv4p8qgnw"},{"Name":"integrity","Value":"sha256-P/HLq/QY3XtU3ZdkcF2cGB7ta9kWTyfcaJUrOtbvc94="},{"Name":"label","Value":"_content/WeatherApi/js/script.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"11437"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022P/HLq/QY3XtU3ZdkcF2cGB7ta9kWTyfcaJUrOtbvc94=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 22:39:09 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/WeatherApi/js/script.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\script.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-AC2fhLh67ZR4IjoqfAdvvYwLwwJ\u002B8JQYyO9rmx0S0aI="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7174"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022AC2fhLh67ZR4IjoqfAdvvYwLwwJ\u002B8JQYyO9rmx0S0aI=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 22:03:40 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-P/HLq/QY3XtU3ZdkcF2cGB7ta9kWTyfcaJUrOtbvc94="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"11437"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022P/HLq/QY3XtU3ZdkcF2cGB7ta9kWTyfcaJUrOtbvc94=\u0022"},{"Name":"Last-Modified","Value":"Thu, 15 May 2025 22:39:09 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>
