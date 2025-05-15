@@ -3375,19 +3375,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\beaba\\.nuget\\packages\\": {}
+    "C:\\Users\\aarat\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\beaba\\Documents\\practicas_Beatriz_Abad\\M03\\UF6\\M3UF6ProjFinal\\WeatherApi.csproj",
+      "projectUniqueName": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\WeatherApi.csproj",
       "projectName": "WeatherApi",
-      "projectPath": "C:\\Users\\beaba\\Documents\\practicas_Beatriz_Abad\\M03\\UF6\\M3UF6ProjFinal\\WeatherApi.csproj",
-      "packagesPath": "C:\\Users\\beaba\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\beaba\\Documents\\practicas_Beatriz_Abad\\M03\\UF6\\M3UF6ProjFinal\\obj\\",
+      "projectPath": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\WeatherApi.csproj",
+      "packagesPath": "C:\\Users\\aarat\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\beaba\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\aarat\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3409,8 +3409,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
-      }
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -3454,6 +3455,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -3462,7 +3481,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -3471,8 +3490,38 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "WeatherApi depends on Microsoft.Extensions.Http (>= 8.0.5) but Microsoft.Extensions.Http 8.0.5 was not found. An approximate best match of Microsoft.Extensions.Http 9.0.0 was resolved.",
+      "message": "WeatherApi depends on Microsoft.Extensions.Http (>= 8.0.5) but Microsoft.Extensions.Http 8.0.5 was not found. Microsoft.Extensions.Http 9.0.0 was resolved instead.",
       "libraryId": "Microsoft.Extensions.Http",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Extensions.Caching.Memory' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-qj66-m88j-hmgj",
+      "libraryId": "Microsoft.Extensions.Caching.Memory",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Text.Json' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-8g4q-xg66-9fp4",
+      "libraryId": "System.Text.Json",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Text.Json' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-hh2w-p6rv-4g7w",
+      "libraryId": "System.Text.Json",
       "targetGraphs": [
         "net8.0"
       ]

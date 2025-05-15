@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/dpyLAPo4YKGow3wtmdfXT0MWZTTau6RfHPZcMuWyHo=",
+  "Hash": "aqo3eJH588o6UaR0MX7sPV4VqRVpbjDc6cCyzSza1YA=",
   "Source": "WeatherApi",
   "BasePath": "_content/WeatherApi",
   "Mode": "Default",
@@ -10,49 +10,219 @@
     {
       "Name": "WeatherApi\\wwwroot",
       "Source": "WeatherApi",
-      "ContentRoot": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\",
       "BasePath": "_content/WeatherApi",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\css\\styles.css",
+      "Identity": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\css\\styles.css",
       "SourceId": "WeatherApi",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\",
       "BasePath": "_content/WeatherApi",
-      "RelativePath": "css/styles.css",
+      "RelativePath": "css/styles#[.{fingerprint}]?.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "ifkpr6hhxd",
+      "Integrity": "Uqmy6P6EAUPX7eqnq3KrdejZD2OBx8pBlcdLYN0U02k=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\styles.css"
     },
     {
-      "Identity": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\js\\script.js",
+      "Identity": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\js\\script.js",
       "SourceId": "WeatherApi",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\",
       "BasePath": "_content/WeatherApi",
-      "RelativePath": "js/script.js",
+      "RelativePath": "js/script#[.{fingerprint}]?.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "4bnwf8i5sw",
+      "Integrity": "AC2fhLh67ZR4IjoqfAdvvYwLwwJ+8JQYyO9rmx0S0aI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\script.js"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "css/styles.css",
+      "AssetFile": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\css\\styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3156"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Uqmy6P6EAUPX7eqnq3KrdejZD2OBx8pBlcdLYN0U02k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 21:15:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Uqmy6P6EAUPX7eqnq3KrdejZD2OBx8pBlcdLYN0U02k="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.ifkpr6hhxd.css",
+      "AssetFile": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\css\\styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3156"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Uqmy6P6EAUPX7eqnq3KrdejZD2OBx8pBlcdLYN0U02k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 21:15:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ifkpr6hhxd"
+        },
+        {
+          "Name": "label",
+          "Value": "css/styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Uqmy6P6EAUPX7eqnq3KrdejZD2OBx8pBlcdLYN0U02k="
+        }
+      ]
+    },
+    {
+      "Route": "js/script.4bnwf8i5sw.js",
+      "AssetFile": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\js\\script.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7174"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AC2fhLh67ZR4IjoqfAdvvYwLwwJ+8JQYyO9rmx0S0aI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 22:03:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4bnwf8i5sw"
+        },
+        {
+          "Name": "label",
+          "Value": "js/script.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AC2fhLh67ZR4IjoqfAdvvYwLwwJ+8JQYyO9rmx0S0aI="
+        }
+      ]
+    },
+    {
+      "Route": "js/script.js",
+      "AssetFile": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\js\\script.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7174"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AC2fhLh67ZR4IjoqfAdvvYwLwwJ+8JQYyO9rmx0S0aI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 15 May 2025 22:03:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AC2fhLh67ZR4IjoqfAdvvYwLwwJ+8JQYyO9rmx0S0aI="
+        }
+      ]
     }
   ]
 }

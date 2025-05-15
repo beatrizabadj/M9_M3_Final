@@ -1,12 +1,16 @@
 {
   "Files": [
     {
-      "Id": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\css\\styles.css",
+      "Id": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\css\\styles.css",
       "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
-      "Id": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\js\\script.js",
+      "Id": "C:\\Users\\aarat\\Desktop\\2 DAM\\M03Prog-M09Disseny\\M03\\UF-6\\PF\\M9_M3_Final\\wwwroot\\js\\script.js",
       "PackagePath": "staticwebassets\\js\\script.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WeatherApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WeatherApi.Microsoft.AspNetCore.StaticWebAssets.props",

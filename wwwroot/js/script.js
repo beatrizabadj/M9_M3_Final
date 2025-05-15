@@ -1,156 +1,169 @@
+// wwwroot/js/script.js
 document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
     const searchInput = document.getElementById('search-input');
     const searchBtn = document.getElementById('search-btn');
     const cityElement = document.getElementById('city');
     const dateElement = document.getElementById('date');
-    const tempElement = document.getElementById('temperature');
-    const descElement = document.getElementById('description');
+    const temperatureElement = document.getElementById('temperature');
+    const descriptionElement = document.getElementById('description');
     const weatherImg = document.getElementById('weather-img');
     const humidityElement = document.querySelector('.humidity');
     const windElement = document.querySelector('.wind');
-    
-    // Set current date
-    const today = new Date();
-    const options = { weekday: 'long', month: 'long', day: 'numeric' };
-    dateElement.textContent = today.toLocaleDateString('en-US', options);
-    
-    // Search functionality
-    searchBtn.addEventListener('click', function() {
-        searchWeather();
-    });
-    
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            searchWeather();
-        }
-    });
-    
-    function searchWeather() {
+    const forecastContainer = document.querySelector('.forecast');
+
+    // Weather icon mapping
+    const weatherIcons = {
+        'sunny': 'https://cdn-icons-png.flaticon.com/512/6974/6974833.png',
+        'clear': 'https://cdn-icons-png.flaticon.com/512/6974/6974833.png',
+        'partly cloudy': 'https://cdn-icons-png.flaticon.com/512/3222/3222800.png',
+        'cloudy': 'https://cdn-icons-png.flaticon.com/512/3313/3313888.png',
+        'overcast': 'https://cdn-icons-png.flaticon.com/512/3313/3313888.png',
+        'mist': 'https://cdn-icons-png.flaticon.com/512/3313/3313888.png',
+        'fog': 'https://cdn-icons-png.flaticon.com/512/3313/3313888.png',
+        'rain': 'https://cdn-icons-png.flaticon.com/512/3351/3351979.png',
+        'drizzle': 'https://cdn-icons-png.flaticon.com/512/3351/3351979.png',
+        'snow': 'https://cdn-icons-png.flaticon.com/512/6428/6428691.png',
+        'thunder': 'https://cdn-icons-png.flaticon.com/512/2936/2936886.png'
+    };
+
+    // Initialize with default city
+    fetchWeather('London');
+
+    // Event listeners
+    searchBtn.addEventListener('click', () => {
         const city = searchInput.value.trim();
+        if (city) {
+            fetchWeather(city);
+        }
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const city = searchInput.value.trim();
+            if (city) {
+                fetchWeather(city);
+            }
+        }
+    });
+
+    // Fetch weather data
+    async function fetchWeather(city) {
+        try {
+            // Show loading state
+            cityElement.textContent = 'Loading...';
+            temperatureElement.textContent = '--°C';
+            descriptionElement.textContent = '';
+            humidityElement.textContent = '--%';
+            windElement.textContent = '-- km/h';
+
+            // Fetch current weather
+            const currentResponse = await fetch(`/api/weather/current?city=${encodeURIComponent(city)}`);
+            if (!currentResponse.ok) {
+                throw new Error(await currentResponse.text());
+            }
+            const currentData = await currentResponse.json();
+
+            // Fetch forecast
+            const forecastResponse = await fetch(`/api/weather/forecast?city=${encodeURIComponent(city)}&days=5`);
+            if (!forecastResponse.ok) {
+                throw new Error(await forecastResponse.text());
+            }
+            const forecastData = await forecastResponse.json();
+
+            // Update UI with current weather
+            updateCurrentWeather(currentData);
+            
+            // Update UI with forecast
+            updateForecast(forecastData);
+            
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+            cityElement.textContent = 'Error loading weather';
+            temperatureElement.textContent = '--°C';
+            descriptionElement.textContent = 'Please try another city';
+        }
+    }
+
+    // Update current weather UI
+    function updateCurrentWeather(data) {
+        cityElement.textContent = `${data.locationName}`;
+        temperatureElement.textContent = `${Math.round(data.currentTemperature)}°C`;
+        descriptionElement.textContent = data.currentCondition;
+        humidityElement.textContent = `${data.currentHumidity}%`;
+        windElement.textContent = `${Math.round(data.currentWindKph)} km/h`;
+
+        // Update date
+        const now = new Date();
+        dateElement.textContent = now.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+
+        // Update weather icon based on condition
+        const condition = data.currentCondition.toLowerCase();
+        let iconKey = 'cloudy'; // default
         
-        if (city === '') {
-            alert('Please enter a city name');
-            return;
+        if (condition.includes('sun') || condition.includes('clear')) {
+            iconKey = 'sunny';
+        } else if (condition.includes('partly')) {
+            iconKey = 'partly cloudy';
+        } else if (condition.includes('cloud')) {
+            iconKey = 'cloudy';
+        } else if (condition.includes('rain') || condition.includes('drizzle')) {
+            iconKey = 'rain';
+        } else if (condition.includes('snow')) {
+            iconKey = 'snow';
+        } else if (condition.includes('thunder') || condition.includes('storm')) {
+            iconKey = 'thunder';
         }
         
-        // Show loading state
-        cityElement.textContent = 'Loading...';
-        tempElement.textContent = '--°C';
-        descElement.textContent = '';
-        
-        // Fetch current weather data
-        fetch(`/api/weather/current?city=${encodeURIComponent(city)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Weather data not found');
-                }
-                return response.json();
-            })
-            .then(data => {
-                updateCurrentWeather(data);
-                
-                // After getting current weather, fetch forecast
-                return fetch(`/api/weather/forecast?city=${encodeURIComponent(city)}`);
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Forecast data not found');
-                }
-                return response.json();
-            })
-            .then(data => {
-                updateForecast(data);
-            })
-            .catch(error => {
-                alert(`Error: ${error.message}`);
-                console.error('Error:', error);
-            });
-        
-        searchInput.value = '';
+        weatherImg.src = weatherIcons[iconKey] || weatherIcons['cloudy'];
     }
-    
-    function updateCurrentWeather(data) {
-        // Update current weather
-        cityElement.textContent = `${data.location.name}, ${data.location.country}`;
-        tempElement.textContent = `${Math.round(data.current.temp_c)}°C`;
-        descElement.textContent = data.current.condition.text;
-        
-        // Update weather icon - convert from WeatherAPI format to our icon format
-        const iconUrl = getIconUrl(data.current.condition.text.toLowerCase());
-        weatherImg.src = iconUrl;
-        
-        humidityElement.textContent = `${data.current.humidity}%`;
-        windElement.textContent = `${Math.round(data.current.wind_kph)} km/h`;
-        
-        // Change background based on weather
-        updateBackground(data.current.condition.text.toLowerCase());
-    }
-    
+
+    // Update forecast UI
     function updateForecast(data) {
-        // Update forecast
-        const forecastDays = document.querySelectorAll('.forecast-day');
-        const forecast = data.forecast.forecastday;
+        // Clear previous forecast
+        forecastContainer.innerHTML = '';
         
-        forecast.forEach((day, index) => {
-            if (index < 5 && forecastDays[index]) {
-                const date = new Date(day.date);
-                const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' });
-                
-                forecastDays[index].querySelector('p:first-child').textContent = dayOfWeek;
-                
-                const iconUrl = getIconUrl(day.day.condition.text.toLowerCase());
-                forecastDays[index].querySelector('img').src = iconUrl;
-                
-                forecastDays[index].querySelector('p:last-child').textContent = 
-                    `${Math.round(day.day.maxtemp_c)}°C`;
+        // Get the next 5 days (skip today)
+        const forecastDays = data.forecast.forecastday.slice(0, 5);
+        
+        forecastDays.forEach(day => {
+            const forecastDayElement = document.createElement('div');
+            forecastDayElement.className = 'forecast-day';
+            
+            // Format date as short weekday (e.g., "Mon")
+            const date = new Date(day.date);
+            const weekday = date.toLocaleDateString('en-US', { weekday: 'short' });
+            
+            // Get appropriate icon
+            const condition = day.day.condition.text.toLowerCase();
+            let iconKey = 'cloudy'; // default
+            
+            if (condition.includes('sun') || condition.includes('clear')) {
+                iconKey = 'sunny';
+            } else if (condition.includes('partly')) {
+                iconKey = 'partly cloudy';
+            } else if (condition.includes('cloud')) {
+                iconKey = 'cloudy';
+            } else if (condition.includes('rain') || condition.includes('drizzle')) {
+                iconKey = 'rain';
+            } else if (condition.includes('snow')) {
+                iconKey = 'snow';
+            } else if (condition.includes('thunder') || condition.includes('storm')) {
+                iconKey = 'thunder';
             }
+            
+            forecastDayElement.innerHTML = `
+                <p>${weekday}</p>
+                <img src="${weatherIcons[iconKey] || weatherIcons['cloudy']}" alt="${day.day.condition.text}">
+                <p>${Math.round(day.day.avgtemp_c)}°C</p>
+            `;
+            
+            forecastContainer.appendChild(forecastDayElement);
         });
     }
-    
-    function getIconUrl(condition) {
-        // Map WeatherAPI condition text to our icon URLs
-        if (condition.includes('sunny') || condition.includes('clear')) {
-            return 'https://cdn-icons-png.flaticon.com/512/6974/6974833.png';
-        } else if (condition.includes('partly cloudy')) {
-            return 'https://cdn-icons-png.flaticon.com/512/3222/3222800.png';
-        } else if (condition.includes('cloudy') || condition.includes('overcast')) {
-            return 'https://cdn-icons-png.flaticon.com/512/3313/3313888.png';
-        } else if (condition.includes('rain') || condition.includes('drizzle')) {
-            return 'https://cdn-icons-png.flaticon.com/512/3351/3351979.png';
-        } else if (condition.includes('snow') || condition.includes('sleet')) {
-            return 'https://cdn-icons-png.flaticon.com/512/642/642102.png';
-        } else if (condition.includes('fog') || condition.includes('mist')) {
-            return 'https://cdn-icons-png.flaticon.com/512/4005/4005901.png';
-        } else if (condition.includes('thunder') || condition.includes('storm')) {
-            return 'https://cdn-icons-png.flaticon.com/512/1146/1146869.png';
-        } else {
-            return 'https://cdn-icons-png.flaticon.com/512/6974/6974833.png';
-        }
-    }
-    
-    function updateBackground(weather) {
-        let gradient;
-        
-        if (weather.includes('sunny') || weather.includes('clear')) {
-            gradient = 'linear-gradient(135deg, #FF9500, #FF5E3A)';
-        } else if (weather.includes('cloudy') || weather.includes('overcast')) {
-            gradient = 'linear-gradient(135deg, #7F8C8D, #ACBAC1)';
-        } else if (weather.includes('rain') || weather.includes('drizzle')) {
-            gradient = 'linear-gradient(135deg, #3498DB, #2C3E50)';
-        } else if (weather.includes('snow') || weather.includes('sleet')) {
-            gradient = 'linear-gradient(135deg, #E4E5E6, #00416A)';
-        } else if (weather.includes('fog') || weather.includes('mist')) {
-            gradient = 'linear-gradient(135deg, #B6B6B6, #5D6D7E)';
-        } else if (weather.includes('thunder') || weather.includes('storm')) {
-            gradient = 'linear-gradient(135deg, #4B79A1, #283E51)';
-        } else {
-            gradient = 'linear-gradient(135deg, #67B26F, #4ca2cd)';
-        }
-        
-        document.body.style.background = gradient;
-    }
-    
-    // Initialize with default city (London)
-    searchInput.value = 'London';
-    searchWeather();
 });
