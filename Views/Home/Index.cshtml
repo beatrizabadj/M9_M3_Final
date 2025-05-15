@@ -1,0 +1,281 @@
+@{
+    ViewData["Title"] = "Weather App";
+    Layout = null; // Use this only if you want to bypass the layout
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #67B26F, #4ca2cd);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            outline: none;
+            background-color: #f5f5f5;
+            border-radius: 30px 0 0 30px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            background-color: #4ca2cd;
+            color: white;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: #3a91bc;
+        }
+
+        .weather-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .location h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .location p {
+            color: #666;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .current-weather {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .weather-info {
+            text-align: left;
+            margin-right: 20px;
+        }
+
+        .weather-info h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .weather-info p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .weather-icon img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .weather-details {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .detail {
+            display: flex;
+            align-items: center;
+        }
+
+        .detail img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .detail div p:first-child {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .detail div p:last-child {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .forecast-container {
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .forecast-container h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .forecast {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .forecast-day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .forecast-day p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .forecast-day img {
+            width: 40px;
+            height: 40px;
+            margin: 5px 0;
+        }
+
+        @@media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .weather-info h1 {
+                font-size: 36px;
+            }
+            
+            .weather-icon img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .forecast {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .forecast-day {
+                margin-right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-box">
+            <input type="text" placeholder="Enter city name" id="search-input">
+            <button id="search-btn">Search</button>
+        </div>
+        
+        <div class="weather-box">
+            <div class="location">
+                <h2 id="city">Loading...</h2>
+                <p id="date"></p>
+            </div>
+            
+            <div class="current-weather">
+                <div class="weather-info">
+                    <h1 id="temperature">--°C</h1>
+                    <p id="description"></p>
+                </div>
+                <div class="weather-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6974/6974833.png" alt="Weather Icon" id="weather-img">
+                </div>
+            </div>
+            
+            <div class="weather-details">
+                <div class="detail">
+                    <img src="https://cdn-icons-png.flaticon.com/512/7005/7005660.png" alt="Humidity">
+                    <div>
+                        <p class="humidity">--%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="detail">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2011/2011448.png" alt="Wind">
+                    <div>
+                        <p class="wind">-- km/h</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="forecast-container">
+            <h3>5-Day Forecast</h3>
+            <div class="forecast">
+                <div class="forecast-day">
+                    <p>--</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/6974/6974833.png" alt="Sunny">
+                    <p>--°C</p>
+                </div>
+                <div class="forecast-day">
+                    <p>--</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3222/3222800.png" alt="Partly Cloudy">
+                    <p>--°C</p>
+                </div>
+                <div class="forecast-day">
+                    <p>--</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3313/3313888.png" alt="Cloudy">
+                    <p>--°C</p>
+                </div>
+                <div class="forecast-day">
+                    <p>--</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3351/3351979.png" alt="Rainy">
+                    <p>--°C</p>
+                </div>
+                <div class="forecast-day">
+                    <p>--</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3313/3313888.png" alt="Cloudy">
+                    <p>--°C</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.csproj.AssemblyReference.cache
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.AssemblyInfoInputs.cache
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.AssemblyInfo.cs
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.csproj.CoreCompileInputs.cache
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.RazorAssemblyInfo.cache
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.RazorAssemblyInfo.cs
+C:\Users\aarat\Desktop\2 DAM\M03Prog-M09Disseny\M03\UF-6\PF\WeatherApi\obj\Debug\net9.0\WeatherApi.sourcelink.json

@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "Hash": "/dpyLAPo4YKGow3wtmdfXT0MWZTTau6RfHPZcMuWyHo=",
+  "Source": "WeatherApi",
+  "BasePath": "_content/WeatherApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "WeatherApi\\wwwroot",
+      "Source": "WeatherApi",
+      "ContentRoot": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\",
+      "BasePath": "_content/WeatherApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\css\\styles.css",
+      "SourceId": "WeatherApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\",
+      "BasePath": "_content/WeatherApi",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
+    },
+    {
+      "Identity": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\js\\script.js",
+      "SourceId": "WeatherApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\MAMP\\htdocs\\WeatherApi2\\wwwroot\\",
+      "BasePath": "_content/WeatherApi",
+      "RelativePath": "js/script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\script.js"
+    }
+  ]
+}
