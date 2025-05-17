@@ -7,7 +7,7 @@
 
 body {
     background: linear-gradient(135deg, #67B26F, #4ca2cd);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +21,7 @@ body {
     width: 100%;
     max-width: 500px;
     padding: 30px;
+    margin-bottom: 20px;
 }
 
 .search-box {
@@ -165,25 +166,115 @@ body {
     margin: 5px 0;
 }
 
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.history-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    margin-top: 20px;
+}
+
+.history-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.history-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.history-info {
+    flex: 1;
+}
+
+.history-info p {
+    margin: 3px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.history-info p:first-child {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.history-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.history-actions button {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s;
+    font-size: 13px;
+}
+
+.history-actions button:hover {
+    background-color: #f0f0f0;
+}
+
+.history-actions button.view:hover {
+    color: #4ca2cd;
+    border-color: #4ca2cd;
+}
+
+.history-actions button.delete:hover {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
 @media (max-width: 600px) {
-    .container {
+
+    .container,
+    .history-container {
         padding: 20px;
     }
-    
+
     .weather-info h1 {
         font-size: 36px;
     }
-    
+
     .weather-icon img {
         width: 80px;
         height: 80px;
     }
-    
+
     .forecast {
         overflow-x: auto;
         padding-bottom: 10px;
     }
-    
+
     .forecast-day {
         margin-right: 15px;
     }
