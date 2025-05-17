@@ -33,6 +33,9 @@ namespace WeatherApi.Migrations
                     b.Property<double>("CurrentTemperature")
                         .HasColumnType("REAL");
 
+                    b.Property<double>("CurrentWindKph")
+                        .HasColumnType("REAL");
+
                     b.Property<double>("Lat")
                         .HasColumnType("REAL");
 
@@ -42,9 +45,6 @@ namespace WeatherApi.Migrations
 
                     b.Property<double>("Lon")
                         .HasColumnType("REAL");
-
-                    b.Property<DateTime>("RetrievedAt")
-                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("TEXT");

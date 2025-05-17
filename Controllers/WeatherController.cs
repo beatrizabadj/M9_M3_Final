@@ -115,5 +115,42 @@ namespace WeatherApp.Controllers
                 return StatusCode(500, $"Error fetching weather history: {ex.Message}");
             }
         }
+
+        [HttpDelete("history/{id}")]
+        public async Task<IActionResult> DeleteWeatherRecord(int id)
+        {
+            try
+            {
+                // Efficient deletion without first loading the entity
+                var rowsAffected = await _context.WeatherRecords
+                    .Where(r => r.Id == id)
+                    .ExecuteDeleteAsync();
+
+                if (rowsAffected == 0)
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = $"Record {id} not found (may have already been deleted)"
+                    });
+                }
+
+                return Ok(new
+                {
+                    success = true,
+                    message = $"Record {id} deleted successfully"
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error deleting record {id}");
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Delete failed",
+                    error = ex.Message
+                });
+            }
+        }
     }
 }

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <i class="fas fa-cloud-sun"></i>
+                <h1>WeatherCast</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <a href="#" class="nav-link" id="home-link">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="history-link">
+                        <i class="fas fa-history"></i> History
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="about-link">
+                        <i class="fas fa-info-circle"></i> About
+                    </a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="app-wrapper">
+            <!-- Weather Container -->
+            <div class="container" id="weather-section">
+                <div class="search-box">
+                    <input type="text" placeholder="Enter city name" id="search-input">
+                    <button id="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+
+                <div class="weather-box">
+                    <div class="location">
+                        <h2 id="city">Loading...</h2>
+                        <p id="date"></p>
+                    </div>
+
+                    <div class="current-weather">
+                        <div class="weather-info">
+                            <h1 id="temperature">--°C</h1>
+                            <p id="description"></p>
+                        </div>
+                        <div class="weather-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/6974/6974833.png" alt="Weather Icon"
+                                id="weather-img">
+                        </div>
+                    </div>
+
+                    <div class="weather-details">
+                        <div class="detail">
+                            <img src="https://cdn-icons-png.flaticon.com/512/7005/7005660.png" alt="Humidity">
+                            <div>
+                                <p class="humidity">--%</p>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+                        <div class="detail">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2011/2011448.png" alt="Wind">
+                            <div>
+                                <p class="wind">-- km/h</p>
+                                <p>Wind Speed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="forecast-container">
+                    <h3>5-Day Forecast</h3>
+                    <div class="forecast">
+                        <div class="forecast-day">
+                            <p>--</p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/6974/6974833.png" alt="Sunny">
+                            <p>--°C</p>
+                        </div>
+                        <div class="forecast-day">
+                            <p>--</p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3222/3222800.png" alt="Partly Cloudy">
+                            <p>--°C</p>
+                        </div>
+                        <div class="forecast-day">
+                            <p>--</p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3313/3313888.png" alt="Cloudy">
+                            <p>--°C</p>
+                        </div>
+                        <div class="forecast-day">
+                            <p>--</p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3351/3351979.png" alt="Rainy">
+                            <p>--°C</p>
+                        </div>
+                        <div class="forecast-day">
+                            <p>--</p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3313/3313888.png" alt="Cloudy">
+                            <p>--°C</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Container -->
+            <div class="history-container" id="history-section">
+                <div class="history-header">
+                    <h3><i class="fas fa-history"></i> Weather History</h3>
+                </div>
+                <div class="history-list" id="history-list">
+                    <!-- History items will be loaded here -->
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="about-container" id="about-section" style="display: none;">
+                <h3><i class="fas fa-info-circle"></i> About WeatherCast</h3>
+                <div class="about-content">
+                    <p>WeatherCast provides real-time weather information and forecasts for locations worldwide. Our data is sourced from reliable weather services to ensure accuracy.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-cloud"></i>
+                            <h4>Current Weather</h4>
+                            <p>Get up-to-date weather conditions for any location</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h4>5-Day Forecast</h4>
+                            <p>Plan ahead with our detailed 5-day weather forecast</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-history"></i>
+                            <h4>Search History</h4>
+                            <p>Access your previous weather searches easily</p>
+                        </div>
+                    </div>
+                    <p class="version">Version 1.0.0 | &copy; 2025 WeatherCast</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 WeatherCast | Powered by WeatherAPI</p>
+        </div>
+    </footer>
+
+    <script src="~/js/script.js"></script>
+    <script>
+        // Navbar functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking a nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Navigation between sections
+            const homeLink = document.getElementById('home-link');
+            const historyLink = document.getElementById('history-link');
+            const aboutLink = document.getElementById('about-link');
+            
+            const weatherSection = document.getElementById('weather-section');
+            const historySection = document.getElementById('history-section');
+            const aboutSection = document.getElementById('about-section');
+
+            // Set active nav item
+            function setActiveNavItem(activeItem) {
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                activeItem.classList.add('active');
+            }
+
+            homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                weatherSection.style.display = 'block';
+                historySection.style.display = 'block';
+                aboutSection.style.display = 'none';
+                setActiveNavItem(homeLink.parentElement);
+            });
+
+            historyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                weatherSection.style.display = 'none';
+                historySection.style.display = 'block';
+                aboutSection.style.display = 'none';
+                setActiveNavItem(historyLink.parentElement);
+                
+                // Scroll to history section on mobile
+                if (window.innerWidth < 768) {
+                    historySection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            aboutLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                weatherSection.style.display = 'none';
+                historySection.style.display = 'none';
+                aboutSection.style.display = 'block';
+                setActiveNavItem(aboutLink.parentElement);
+            });
+        });
+    </script>
+</body>
+
+</html>

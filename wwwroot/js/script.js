@@ -1,4 +1,5 @@
-// wwwroot/js/script.js
+let deleteHandlerAttached = false;
+
 document.addEventListener('DOMContentLoaded', function () {
     // DOM Elements
     const searchInput = document.getElementById('search-input');
@@ -11,6 +12,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const humidityElement = document.querySelector('.humidity');
     const windElement = document.querySelector('.wind');
     const forecastContainer = document.querySelector('.forecast');
+
+    // Add event delegation for history list clicks HERE (moved from displayWeatherHistory)
+    document.getElementById('history-list').addEventListener('click', async (e) => {
+        const deleteBtn = e.target.closest('.delete');
+        if (deleteBtn) {
+            e.stopPropagation(); // Prevent event bubbling
+            const id = deleteBtn.dataset.id;
+            await deleteHistoryItem(id);
+            return;
+        }
+
+        const viewBtn = e.target.closest('.view');
+        if (viewBtn) {
+            e.stopPropagation(); // Prevent event bubbling
+            const id = viewBtn.dataset.id;
+            viewHistoryItem(id);
+        }
+    });
 
     // Weather icon mapping
     const weatherIcons = {
@@ -77,6 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Update UI with forecast
             updateForecast(forecastData);
 
+            // Refresh history list after successful search
+            await loadWeatherHistory();
+
         } catch (error) {
             console.error('Error fetching weather data:', error);
             cityElement.textContent = 'Error loading weather';
@@ -87,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update current weather UI
     function updateCurrentWeather(data) {
-        cityElement.textContent = `${data.locationName}`;
+        cityElement.textContent = data.locationName;
         temperatureElement.textContent = `${Math.round(data.currentTemperature)}°C`;
         descriptionElement.textContent = data.currentCondition;
         humidityElement.textContent = `${data.currentHumidity}%`;
-        windElement.textContent = `${Math.round(data.currentWindKph)} km/h`;
+        windElement.textContent = data.currentWindKph ? `${Math.round(data.currentWindKph)} km/h` : "-- km/h";
 
         // Update date
         const now = new Date();
@@ -135,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const forecastDayElement = document.createElement('div');
             forecastDayElement.className = 'forecast-day';
 
-            // Format date as short weekday (e.g., "Mon")
+            // Format date as short weekday
             const date = new Date(day.date);
             const weekday = date.toLocaleDateString('en-US', { weekday: 'short' });
 
@@ -157,11 +179,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 iconKey = 'thunder';
             }
 
-            forecastDayElement.innerHTML = `
-                <p>${weekday}</p>
+            forecastDayElement.innerHTML =
+                `<p>${weekday}</p>
                 <img src="${weatherIcons[iconKey] || weatherIcons['cloudy']}" alt="${day.day.condition.text}">
                 <p>${Math.round(day.day.avgtemp_c)}°C</p>
-            `;
+                `;
 
             forecastContainer.appendChild(forecastDayElement);
         });
@@ -182,6 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function displayWeatherHistory(history) {
         const historyList = document.getElementById('history-list');
+        // Clear existing items AND remove old event listeners
         historyList.innerHTML = '';
 
         if (history.length === 0) {
@@ -189,50 +212,60 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // Attach event listener ONLY if not already attached
+        if (!deleteHandlerAttached) {
+            historyList.addEventListener('click', handleHistoryListClick);
+            deleteHandlerAttached = true;
+        }
+
         history.forEach(item => {
             const historyItem = document.createElement('div');
             historyItem.className = 'history-item';
-            historyItem.dataset.id = item.id;  // Store ID on the item
+            historyItem.dataset.id = item.id;
 
             const date = new Date(item.timestamp).toLocaleString();
 
-            historyItem.innerHTML = `
-            <div class="history-info">
-                <p>${item.locationName}</p>
-                <p>${Math.round(item.currentTemperature)}°C, ${item.currentCondition}</p>
-                <p>Humidity: ${item.currentHumidity}%</p>
-                <p>${date}</p>
-            </div>
-            <div class="history-actions">
-                <button class="view" data-id="${item.id}">View</button>
-                <button class="delete" data-id="${item.id}">Delete</button>
-            </div>
-        `;
+            historyItem.innerHTML =
+                `<div class="history-info">
+                    <p>${item.locationName}</p>
+                    <p>${Math.round(item.currentTemperature)}°C, ${item.currentCondition}</p>
+                    <p>Humidity: ${item.currentHumidity}%</p>
+                    <p>${date}</p>
+                </div>
+                <div class="history-actions">
+                    <button class="view" data-id="${item.id}">View</button>
+                    <button class="delete" data-id="${item.id}">Delete</button>
+                </div>
+                `;
 
             historyList.appendChild(historyItem);
         });
+    }
 
-        // Add event delegation for better performance
-        historyList.addEventListener('click', (e) => {
-            const viewBtn = e.target.closest('.view');
-            const deleteBtn = e.target.closest('.delete');
+    // Separate click handler function
+    async function handleHistoryListClick(e) {
+        const deleteBtn = e.target.closest('.delete');
+        if (deleteBtn) {
+            e.stopPropagation();
+            e.preventDefault(); // Add this to prevent any default behavior
+            const id = deleteBtn.dataset.id;
+            await deleteHistoryItem(id);
+            return;
+        }
 
-            if (viewBtn) {
-                const id = viewBtn.getAttribute('data-id');
-                viewHistoryItem(id);
-            }
-
-            if (deleteBtn) {
-                const id = deleteBtn.getAttribute('data-id');
-                deleteHistoryItem(id);
-            }
-        });
+        const viewBtn = e.target.closest('.view');
+        if (viewBtn) {
+            e.stopPropagation();
+            e.preventDefault(); // Add this to prevent any default behavior
+            const id = viewBtn.dataset.id;
+            viewHistoryItem(id);
+        }
     }
 
     async function viewHistoryItem(id) {
         try {
             // First try to get the full record from your history endpoint
-            const historyResponse = await fetch(`/api/weather/history`);
+            const historyResponse = await fetch('/api/weather/history');
             if (!historyResponse.ok) throw new Error('Failed to fetch history');
 
             const history = await historyResponse.json();
@@ -264,24 +297,46 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function deleteHistoryItem(id) {
-        if (!confirm('Are you sure you want to delete this weather record?')) {
+        // Get the item element before showing confirmation
+        const itemElement = document.querySelector(`.history-item[data-id="${id}"]`);
+
+        if (!itemElement) {
+            console.log('Item already removed from UI');
             return;
         }
 
+        
+    
+
+        // Visual feedback
+        itemElement.style.opacity = '0.5';
+        itemElement.querySelectorAll('button').forEach(btn => {
+            btn.disabled = true;
+        });
+
         try {
             const response = await fetch(`/api/weather/history/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json'
+                }
             });
 
             if (!response.ok) {
                 throw new Error(await response.text());
             }
 
-            // Reload history after deletion
-            await loadWeatherHistory();
+            // Remove from UI only after successful server response
+            itemElement.remove();
+
         } catch (error) {
-            console.error('Error deleting history item:', error);
-            alert('Failed to delete weather record');
+            console.error('Delete error:', error);
+            alert(`Delete failed: ${error.message}`);
+            // Reset UI state
+            itemElement.style.opacity = '1';
+            itemElement.querySelectorAll('button').forEach(btn => {
+                btn.disabled = false;
+            });
         }
     }
 

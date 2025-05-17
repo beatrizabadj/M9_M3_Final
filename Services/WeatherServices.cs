@@ -78,6 +78,7 @@ namespace WeatherApp.Services
                     Lon = apiResponse.Location.Lon,
                     CurrentTemperature = apiResponse.Current.Temp_c,
                     CurrentHumidity = apiResponse.Current.Humidity,
+                    CurrentWindKph = apiResponse.Current.Wind_kph,
                     CurrentCondition = apiResponse.Current.Condition?.Text ?? "Unknown",
                     Timestamp = DateTime.UtcNow
                 };
