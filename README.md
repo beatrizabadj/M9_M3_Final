@@ -12,12 +12,6 @@ Este proyecto es una aplicación web que permite consultar el tiempo actual y la
 
 ## 🏗️ Esquema de arquitectura
 
-La aplicación sigue la arquitectura MVC:
-
-- **Modelo:** Gestiona los datos y la lógica de negocio (clases en la carpeta `Models` y acceso a la base de datos SQLite).
-- **Vista:** Interfaz de usuario, archivos `.cshtml` en la carpeta `Views` y recursos estáticos en `wwwroot`.
-- **Controlador:** Gestiona las peticiones del usuario y conecta el modelo con la vista (`Controllers/HomeController.cs` y `Controllers/WeatherController.cs`).
-
 ```
 WeatherApp (Arquitectura MVC)
 │
@@ -47,14 +41,46 @@ WeatherApp (Arquitectura MVC)
 └── Program.cs          (Configuración)
 
 ```
-
 ## 🧠 Explicación del Código (MVC)
 
-- **Modelos:**  
-  - WeatherData: Representa los datos climáticos almacenados en la base de datos
-  - WeatherResponse: Estructura para la respuesta de la API (clima actual)
-  - ForecastResponse: Estructura para el pronóstico extendido
+### 1. Modelos (`Models/`)
+- **WeatherData**: Representa los datos climáticos almacenados en la base de datos (ciudad, temperatura, humedad, viento, etc.)
+- **WeatherResponse**: Estructura para parsear la respuesta JSON de la API (clima actual)
+- **ForecastResponse**: Estructura para parsear el pronóstico extendido (5 días)
 
+### 2. Vistas (`Views/Home/Index.cshtml`)
+- Interfaz única con tres secciones dinámicas:
+  - **Clima actual**: Muestra temperatura, humedad, velocidad del viento e icono descriptivo
+  - **Pronóstico 5 días**: Tarjetas con temperatura promedio y condiciones
+  - **Historial**: Lista interactiva de búsquedas anteriores (con botones View/Delete)
+- Diseño responsive usando CSS Grid/Flexbox
+- Interactividad con JavaScript puro (sin frameworks)
+
+### 3. Controladores (`Controllers/`)
+- **HomeController.cs**:
+  - Maneja la página principal (Index)
+  - Vista simple sin lógica compleja
+
+- **WeatherController.cs** (API REST):
+  - `GET /api/weather/current`: Obtiene clima actual (usa WeatherService)
+  - `GET /api/weather/forecast`: Devuelve pronóstico 5 días
+  - `GET /api/weather/history`: Lista todo el historial
+  - `DELETE /api/weather/history/{id}`: Elimina registro específico
+
+### 4. Servicios (`Services/`)
+- **IWeatherService.cs** (Interfaz):
+  - Define contratos para `GetCurrentWeatherAsync` y `GetForecastAsync`
+
+- **WeatherService.cs** (Implementación):
+  - Consulta WeatherAPI.com via HTTP
+  - Cachea respuestas en memoria (30 mins para clima actual, 1h para pronóstico)
+  - Almacena automáticamente en SQLite cada búsqueda
+  - Manejo robusto de errores (API no disponible, ciudad no encontrada, etc.)
+
+### 5. Data Access (`Data/WeatherContext.cs`)
+- Configuración de Entity Framework Core para SQLite
+- Define `WeatherRecords` como tabla única
+- Migraciones automáticas al iniciar la aplicación
 
 - **Tecnologías utilizadas:**
   - Lenguajes: C# para el backend y JS, HTML5 y CSS3 para el frontend
@@ -86,8 +112,8 @@ Cuenta en WeatherAPI.com (API key)
 
 ```bash
 
-docker build -t weatherapp .
-docker run -p 8080:80 weatherapp
+docker build
+docker run
 
 ```
 
