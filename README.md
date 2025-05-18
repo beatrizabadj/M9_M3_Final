@@ -10,7 +10,7 @@ Este proyecto es una aplicación web que permite consultar el tiempo actual y la
 - Mantener un historial de búsquedas
 - Gestionar (ver/eliminar) registros históricos
 
-## Esquema de arquitectura
+## 🏗️ Esquema de arquitectura
 
 La aplicación sigue la arquitectura MVC:
 
