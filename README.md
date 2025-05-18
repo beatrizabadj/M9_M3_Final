@@ -1,8 +1,14 @@
 # Weather App
 
-## Justificación y motivación del proyecto
+## 📌 Justificación y Motivación del Proyecto
 
 Este proyecto es una aplicación web que permite consultar el tiempo actual y la previsión meteorológica de cualquier ciudad.
+
+### La aplicación permite:
+- Buscar el clima actual de cualquier ciudad
+- Ver pronósticos de 5 días
+- Mantener un historial de búsquedas
+- Gestionar (ver/eliminar) registros históricos
 
 ## Esquema de arquitectura
 
@@ -13,37 +19,63 @@ La aplicación sigue la arquitectura MVC:
 - **Controlador:** Gestiona las peticiones del usuario y conecta el modelo con la vista (`Controllers/HomeController.cs` y `Controllers/WeatherController.cs`).
 
 ```
-[Usuario] ⇄ [Vista] ⇄ [Controlador] ⇄ [Modelo] ⇄ [Base de datos/API]
+WeatherApp (Arquitectura MVC)
+│
+├── Controllers/        (Lógica de negocio)
+│   ├── HomeController.cs
+│   └── WeatherController.cs
+│
+├── Data/               (Acceso a datos)
+│   └── WeatherContext.cs
+│
+├── Models/             (Estructuras de datos)
+│   ├── WeatherData.cs
+│   ├── WeatherResponse.cs
+│   └── ForecastResponse.cs
+│
+├── Services/           (Servicios externos)
+│   ├── IWeatherService.cs
+│   └── WeatherService.cs
+│
+├── Views/              (Interfaz de usuario)
+│   └── Home/Index.cshtml
+│
+├── wwwroot/            (Recursos estáticos)
+│   ├── css/styles.css
+│   └── js/script.js
+│
+└── Program.cs          (Configuración)
+
 ```
 
-## Explicación detallada del código desarrollado según la arquitectura MVC
+## 🧠 Explicación del Código (MVC)
 
 - **Modelos:**  
-  - [`WeatherData`](Models/WeatherData.cs): Representa los datos meteorológicos almacenados en la base de datos.
-  - [`ForecastResponse`](Models/ForecastResponse.cs) y [`WeatherResponse`](Models/WeatherResponse.cs): Modelan la respuesta de la API externa del tiempo.
+  - WeatherData: Representa los datos climáticos almacenados en la base de datos
+  - WeatherResponse: Estructura para la respuesta de la API (clima actual)
+  - ForecastResponse: Estructura para el pronóstico extendido
 
-- **Controladores:**  
-  - [`HomeController`](Controllers/HomeController.cs): Muestra la página principal.
-  - [`WeatherController`](Controllers/WeatherController.cs): Expone endpoints API para obtener el tiempo actual y la previsión, usando [`IWeatherService`](Services/IWeatherServices.cs).
 
-- **Vistas:**  
-  - [`Views/Home/Index.cshtml`](Views/Home/Index.cshtml): Página principal con el buscador y la visualización del tiempo.
-  - [`Views/Shared/_Layout.cshtml`](Views/Shared/_Layout.cshtml): Plantilla base para las vistas.
 
-- **Servicios:**  
-  - [`WeatherService`](Services/WeatherServices.cs): Lógica para consumir la API externa y gestionar la caché y la base de datos.
+## 🚀 Mejoras y Nuevas Funcionalidades Propuestas
 
-- **Base de datos:**  
-  - [`WeatherContext`](Data/WeatherContext.cs): Contexto de Entity Framework para guardar consultas meteorológicas en SQLite.
+- Autenticación de Usuarios: Registrar usuarios
+- Mapas interactivos para seleccionar ubicación
+- Comparación climática entre ciudades
+- Internacionalización (multiidioma)
 
-- **Recursos estáticos:**  
-  - CSS en [`wwwroot/css/styles.css`](wwwroot/css/styles.css) y JS en [`wwwroot/js/script.js`](wwwroot/js/script.js).
+## 🛠️ Requisitos Técnicos
+.NET 8.0
 
-## Propuestas de mejora y nuevas funcionalidades
+SQLite
 
-- Permitir buscar el tiempo por coordenadas GPS.
-- Añadir gráficos de evolución del tiempo.
-- Guardar el historial de búsquedas del usuario.
-- Permitir seleccionar el idioma de la interfaz.
-- Añadir autenticación de usuarios para guardar ciudades favoritas.
-- Mejorar el diseño responsive y accesibilidad.
+Cuenta en WeatherAPI.com (API key)
+
+## ▶️ Ejecución
+
+```bash
+
+docker build -t weatherapp .
+docker run -p 8080:80 weatherapp
+
+```
